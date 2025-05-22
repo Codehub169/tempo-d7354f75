@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Results for "{{ query }}" - PriceWise</title>
+    <title>{% if error_message %}Input Error - PriceWise{% else %}Search Results for "{{ query }}" - PriceWise{% endif %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -18,40 +18,49 @@
     </header>
 
     <main class="container">
-        <section class="results-header">
-            <h1>Search Results</h1>
-            <p>Showing results for: <strong>"{{ query }}"</strong></p>
-        </section>
-
-        {% if products %}
-            <section class="results-grid">
-                {% for product in products %}
-                <div class="product-card">
-                    <div class="product-image-container">
-                        <img src="{{ product.image_url if product.image_url else 'https://images.unsplash.com/photo-1580902394724-b08ff9ba7e8a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60' }}" alt="{{ product.name }}" class="product-image">
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">{{ product.name }}</h3>
-                        <p class="product-store">
-                            <span class="material-icons icon-sm">storefront</span>
-                            {{ product.store }}
-                        </p>
-                        <p class="product-price">{{ product.price }}</p>
-                        <a href="{{ product.url }}" target="_blank" class="btn btn-primary product-link">
-                            View Deal
-                            <span class="material-icons icon-sm">open_in_new</span>
-                        </a>
-                    </div>
-                </div>
-                {% endfor %}
+        {% if error_message %}
+            <section class="no-results" style="padding-top: 40px;"> <!-- Reusing .no-results for general styling -->
+                <span class="material-icons large-icon" style="color: #ffc107;">error_outline</span> <!-- Warning color icon -->
+                <h2>Input Required</h2>
+                <p style="font-size: 1.2rem; color: #212529; margin-bottom: 25px;">{{ error_message }}</p>
+                <a href="{{ url_for('home') }}" class="btn btn-primary">Perform a New Search</a>
             </section>
         {% else %}
-            <section class="no-results">
-                <span class="material-icons large-icon">sentiment_dissatisfied</span>
-                <h2>No products found for "{{ query }}".</h2>
-                <p>We couldn't find any matches for your search. Try refining your keywords or explore other categories.</p>
-                <a href="{{ url_for('home') }}" class="btn btn-secondary">Back to Home</a>
+            <section class="results-header">
+                <h1>Search Results</h1>
+                <p>Showing results for: <strong>"{{ query }}"</strong></p>
             </section>
+
+            {% if products %}
+                <section class="results-grid">
+                    {% for product in products %}
+                    <div class="product-card">
+                        <div class="product-image-container">
+                            <img src="{{ product.image_url if product.image_url else 'https://images.unsplash.com/photo-1580902394724-b08ff9ba7e8a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60' }}" alt="{{ product.name }}" class="product-image">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">{{ product.name }}</h3>
+                            <p class="product-store">
+                                <span class="material-icons icon-sm">storefront</span>
+                                {{ product.store }}
+                            </p>
+                            <p class="product-price">{{ product.price }}</p>
+                            <a href="{{ product.url }}" target="_blank" rel="noopener noreferrer" class="btn btn-primary product-link">
+                                View Deal
+                                <span class="material-icons icon-sm">open_in_new</span>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </section>
+            {% else %}
+                <section class="no-results">
+                    <span class="material-icons large-icon">sentiment_dissatisfied</span>
+                    <h2>No products found for "{{ query }}".</h2>
+                    <p>We couldn't find any matches for your search. Try refining your keywords or explore other categories.</p>
+                    <a href="{{ url_for('home') }}" class="btn btn-secondary">Back to Home</a>
+                </section>
+            {% endif %}
         {% endif %}
     </main>
 
