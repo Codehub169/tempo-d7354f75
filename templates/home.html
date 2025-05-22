@@ -4,11 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PriceWise - Find the Best Deals</title>
-    <!-- Link to the external CSS file (to be created in a later batch) -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    
-    <!-- Embedded styles for immediate visual appeal, demonstrating style guide -->
-    <!-- These should ideally be moved to and expanded in style.css -->
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -43,7 +39,6 @@
         }
 
         .search-hero {
-            /* Using a real image URL from Unsplash for visual enrichment */
             background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1580577663513-5d37959132ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
             background-size: cover;
             background-position: center;
@@ -66,30 +61,32 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
 
-        .search-form {
+        /* Styles for the search form specifically within the hero on home.html */
+        /* These might be slightly different from a generic .search-form in style.css */
+        .search-hero .search-form {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px; /* Space between input and button */
+            gap: 10px;
         }
 
-        .search-form input[type="text"] {
+        .search-hero .search-form input[type="text"] {
             padding: 0.75rem 1rem;
             font-size: 1rem;
-            border: 1px solid #ced4da; /* Light border */
+            border: 1px solid #ced4da;
             border-radius: 4px;
             width: 60%;
             max-width: 450px;
             box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
         }
 
-        .search-form input[type="text"]:focus {
+        .search-hero .search-form input[type="text"]:focus {
             border-color: #007bff; /* Primary blue on focus */
             outline: 0;
             box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
         }
 
-        .search-form button {
+        .search-hero .search-form button {
             padding: 0.75rem 1.5rem;
             font-size: 1rem;
             background-color: #007bff; /* Style Guide: Primary Blue */
@@ -98,11 +95,11 @@
             border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.2s ease-in-out;
-            display: inline-flex; /* For icon alignment */
+            display: inline-flex; 
             align-items: center;
         }
 
-        .search-form button:hover {
+        .search-hero .search-form button:hover {
             background-color: #0056b3; /* Darker shade of Primary Blue */
         }
 
@@ -151,14 +148,18 @@
         <section class="search-hero">
             <h2>Find the Best Price, Instantly.</h2>
             <p>Search for any product and compare prices from your favorite online stores.</p>
-            <!-- Search form submits to /search route using GET method -->
             <form action="{{ url_for('search') }}" method="get" class="search-form">
                 <input type="text" name="query" placeholder="e.g., Smart TV, Running Shoes, Coffee Maker" required>
                 <button type="submit">
-                    <span class="search-icon">🛍️</span> <!-- Simple shopping bag emoji as icon -->
+                    <span class="search-icon">🛍️</span> <!-- Corrected shopping bag emoji -->
                     Search
                 </button>
             </form>
+            <div id="searchLoader" class="loader-container" style="margin-top: 20px;">
+                <!-- The 'display: none;' for loader-container is in style.css -->
+                <p>Searching for the best deals...</p>
+                <div class="spinner"></div>
+            </div>
         </section>
         
         <section class="info-section">
@@ -172,5 +173,35 @@
     <footer>
         <p>&copy; 2024 PriceWise. All rights reserved.</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchForm = document.querySelector('form.search-form');
+            if (searchForm) {
+                searchForm.addEventListener('submit', function(event) {
+                    // Basic client-side validation: prevent empty submission if 'required' is bypassed
+                    const queryInput = searchForm.querySelector('input[name="query"]');
+                    if (queryInput && queryInput.value.trim() === '') {
+                        event.preventDefault(); // Stop form submission
+                        // Optionally, display an error message to the user here
+                        alert('Please enter a product name to search.');
+                        return;
+                    }
+
+                    const loader = document.getElementById('searchLoader');
+                    if (loader) {
+                        loader.style.display = 'block';
+                    }
+                    const submitButton = searchForm.querySelector('button[type="submit"]');
+                    if (submitButton) {
+                        submitButton.disabled = true;
+                        // Example: change button text to indicate loading
+                        // submitButton.innerHTML = '<span class="spinner-small"></span> Searching...'; 
+                        // This would require a .spinner-small CSS class in style.css
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>

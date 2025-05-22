@@ -1,19 +1,24 @@
 /* General Styles */
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif; /* Fallback font stack */
+    /* More comprehensive font stack from home.html is good, but this is simpler for general CSS */
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa; /* Light Grey */
-    color: #212529; /* Dark Grey */
+    background-color: #f8f9fa; /* Style Guide: Background Light Grey */
+    color: #212529; /* Style Guide: Text Dark Grey */
     line-height: 1.6;
+    display: flex; /* Added for consistent flex behavior if home.html style block is removed */
+    flex-direction: column; /* Added for consistent flex behavior */
+    min-height: 100vh; /* Ensures footer stays at bottom */
 }
 
 .container {
     width: 90%;
     max-width: 1200px;
-    margin: auto;
-    overflow: hidden;
-    padding: 0 20px;
+    margin: 2rem auto; /* Adjusted for consistency with home.html */
+    overflow: hidden; /* Can be problematic with dropdowns/tooltips, use with care */
+    padding: 0 1rem; /* Adjusted for consistency with home.html */
+    flex-grow: 1; /* Allows main content to fill space */
 }
 
 h1, h2, h3 {
@@ -21,7 +26,7 @@ h1, h2, h3 {
 }
 
 a {
-    color: #007bff; /* Primary Blue */
+    color: #007bff; /* Style Guide: Primary Blue */
     text-decoration: none;
 }
 
@@ -29,7 +34,7 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Header Styles */
+/* Header Styles - General for results page, home.html has its own */
 header {
     background: #ffffff;
     color: #212529;
@@ -42,6 +47,10 @@ header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 0; /* Override .container margin for header */
+    margin-bottom: 0; /* Override .container margin for header */
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 header .brand-logo {
@@ -65,56 +74,30 @@ header nav a:hover {
     text-decoration: none;
 }
 
-/* Hero Section (Home Page) */
-.hero {
-    background-image: url('https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80');
-    background-size: cover;
-    background-position: center;
-    color: #ffffff;
-    padding: 80px 20px;
-    text-align: center;
-    min-height: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
-    margin-top: 20px;
-    box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.4);
-}
+/* Hero Section (Specific to Home Page - styled in home.html's <style> block) */
+/* .hero styles here would be general fallbacks or for other pages if .hero is reused */
 
-.hero h1 {
-    font-size: 3rem;
-    margin-bottom: 20px;
-    color: #ffffff;
-}
-
-.hero p {
-    font-size: 1.5rem;
-    margin-bottom: 30px;
-    color: #f8f9fa;
-}
-
-/* Search Form (Home Page) */
+/* Search Form (General Styles) */
+/* home.html's .search-hero .search-form is more specific for the hero section */
 .search-form {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
-    background-color: #fff;
-    padding: 15px;
+    gap: 10px;
     border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     width: 100%;
-    max-width: 600px;
+    max-width: 600px; 
+    margin: 20px auto; /* Default margin, can be overridden */
 }
 
 .search-form input[type="text"] {
-    width: 70%;
-    padding: 15px;
-    font-size: 1.1rem;
-    border: 1px solid #ced4da;
-    border-radius: 6px 0 0 6px;
+    padding: 0.75rem 1rem; 
+    font-size: 1rem; 
+    border: 1px solid #ced4da; 
+    border-radius: 4px; 
+    flex-grow: 1; /* Allow input to take available space */
+    min-width: 200px; /* Prevent input from becoming too small */
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.075); 
     outline: none;
 }
 
@@ -124,42 +107,25 @@ header nav a:hover {
 }
 
 .search-form button {
-    padding: 15px 25px;
-    font-size: 1.1rem;
-    background-color: #007bff; /* Primary Blue */
+    padding: 0.75rem 1.5rem; 
+    font-size: 1rem; 
+    background-color: #007bff; 
     color: white;
     border: none;
-    border-radius: 0 6px 6px 0;
+    border-radius: 4px; 
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.2s ease-in-out; 
+    display: inline-flex; 
+    align-items: center; 
 }
 
 .search-form button:hover {
     background-color: #0056b3;
 }
 
-/* Info Section (Home Page) */
-.info-section {
-    padding: 60px 20px;
-    text-align: center;
-    background-color: #ffffff;
-    margin-top: 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
-}
 
-.info-section h2 {
-    font-size: 2.2rem;
-    margin-bottom: 20px;
-    color: #007bff;
-}
-
-.info-section p {
-    font-size: 1.1rem;
-    color: #495057;
-    max-width: 700px;
-    margin: 0 auto 15px auto;
-}
+/* Info Section (Specific to Home Page - styled in home.html's <style> block) */
+/* .info-section styles here would be general fallbacks or for other pages */
 
 /* Results Page Styles */
 .results-header {
@@ -205,6 +171,7 @@ header nav a:hover {
     width: 100%;
     height: 200px;
     overflow: hidden;
+    background-color: #f0f0f0; /* Placeholder background for image area */
 }
 
 .product-image {
@@ -230,6 +197,13 @@ header nav a:hover {
     font-weight: 600;
     margin-bottom: 10px;
     color: #343a40;
+    /* Basic truncation for long names */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 2.8rem; /* Assuming 1.4rem * 2 lines, adjust as needed */
 }
 
 .product-store {
@@ -268,7 +242,7 @@ header nav a:hover {
 
 .no-results h2 {
     font-size: 2rem;
-    color: #dc3545;
+    color: #dc3545; /* Bootstrap danger color for emphasis */
     margin-bottom: 15px;
 }
 
@@ -290,12 +264,13 @@ header nav a:hover {
     transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    border: 1px solid transparent; /* Base border for consistent sizing */
 }
 
 .btn-primary {
     background-color: #007bff; /* Primary Blue */
     color: white;
-    border: 1px solid #007bff;
+    border-color: #007bff;
 }
 
 .btn-primary:hover {
@@ -308,7 +283,7 @@ header nav a:hover {
 .btn-secondary {
     background-color: #6c757d; /* Secondary Grey */
     color: white;
-    border: 1px solid #6c757d;
+    border-color: #6c757d;
 }
 
 .btn-secondary:hover {
@@ -328,7 +303,7 @@ header nav a:hover {
     margin-left: 8px;
 }
 
-/* Icons */
+/* Icons (used with Material Icons font) */
 .material-icons.icon-sm {
     font-size: 1.2rem;
     vertical-align: middle;
@@ -336,18 +311,19 @@ header nav a:hover {
 }
 
 .material-icons.large-icon {
-    font-size: 4rem;
+    font-size: 4rem; /* Reduced from 5rem for better balance */
     display: block;
     margin: 0 auto 15px auto;
 }
 
-/* Footer Styles */
+/* Footer Styles - General, home.html has its own identical footer style block */
 footer {
     background: #343a40;
     color: #f8f9fa;
     text-align: center;
-    padding: 30px 0;
-    margin-top: 40px;
+    padding: 1.5rem 0; /* Adjusted for consistency */
+    margin-top: auto; /* Pushes footer to bottom if content is short */
+    width: 100%; /* Ensure footer spans full width */
 }
 
 footer p {
@@ -355,30 +331,49 @@ footer p {
     font-size: 0.9rem;
 }
 
+/* Loader Styles (for home.html) */
+.loader-container {
+    text-align: center;
+    padding: 20px;
+    display: none; /* Hidden by default, JS will show it */
+    color: #ffffff; /* Text color for loader message on hero background */
+}
+
+.loader-container p {
+    font-size: 1.2rem;
+    color: #f8f9fa; /* Light color for visibility on dark hero */
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
+}
+
+.spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3); /* Lighter border for dark bg */
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-left-color: #ffffff; /* Spinner active color white */
+    animation: spin 1s linear infinite; /* Changed to linear for smoother spin */
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
 /* Responsive Design */
 @media (max-width: 768px) {
-    .hero h1 {
-        font-size: 2.5rem;
+    /* General responsive adjustments */
+    .container {
+        width: 95%;
+        padding: 0 0.5rem;
     }
-    .hero p {
-        font-size: 1.2rem;
-    }
-    .search-form {
-        flex-direction: column;
-        padding: 20px;
-    }
-    .search-form input[type="text"] {
-        width: 100%;
-        border-radius: 6px;
-        margin-bottom: 10px;
-    }
-    .search-form button {
-        width: 100%;
-        border-radius: 6px;
-    }
-    .results-grid {
-        grid-template-columns: 1fr; /* Single column on smaller screens */
-    }
+
     header .container {
         flex-direction: column;
         text-align: center;
@@ -389,17 +384,42 @@ footer p {
     header nav a {
         margin: 0 10px;
     }
+
+    /* Search form responsiveness (applies to general .search-form) */
+    /* home.html's hero search form also needs this behavior */
+    .search-form,
+    .search-hero .search-form { /* Ensure hero search form also becomes column */
+        flex-direction: column;
+        align-items: stretch; /* Make items full width in column */
+    }
+    .search-form input[type="text"],
+    .search-hero .search-form input[type="text"] {
+        width: 100%; 
+        max-width: none; 
+        margin-bottom: 10px;
+        box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    }
+    .search-form button,
+    .search-hero .search-form button {
+        width: 100%; 
+        box-sizing: border-box;
+    }
+
+    .results-grid {
+        grid-template-columns: 1fr; /* Single column on smaller screens */
+    }
+    .results-header h1 {
+        font-size: 2rem;
+    }
 }
 
 @media (max-width: 480px) {
-    .hero h1 {
-        font-size: 2rem;
-    }
-    .hero p {
-        font-size: 1rem;
-    }
+    /* home.html embedded styles already handle .search-hero h2, p font sizes */
+    /* .hero h1, .hero p from style.css are for a generic .hero, not the one in home.html */
+
     .product-name {
         font-size: 1.2rem;
+        min-height: 2.4rem; /* Adjust for smaller font size */
     }
     .product-price {
         font-size: 1.3rem;
@@ -407,5 +427,11 @@ footer p {
     .btn {
         padding: 10px 20px;
         font-size: 0.9rem;
+    }
+    .results-header h1 {
+        font-size: 1.8rem;
+    }
+    .results-header p {
+        font-size: 1rem;
     }
 }
